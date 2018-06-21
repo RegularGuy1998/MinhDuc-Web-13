@@ -29,16 +29,16 @@
 //     console.log("5s");
 // }, 5000);
 
-// const countDown = function (count) {
-//     for (var i = count; i >= 0; i-- ) {
-//         setTimeout(function () {
-//             console.log(i);
-//         }, 1000 * (count - i));
+const countDown = function (count) {
+    for (var i = count; i >= 0; i-- ) {
+        setTimeout(function () {
+            console.log(i);
+        }, 1000);
 
-//     }
-// }
+    }
+}
 
-// countDown(5);
+countDown(5);
 
 // Block Scope
 
@@ -63,20 +63,20 @@
 
 // functionScope();
 
-var data = null;
+// var data = null;
 
-const print = function (i) {
-    console.log(i);
-}
+// const print = function (i) {
+//     console.log(i);
+// }
 
-const otherFunction = function (callBack) {
-    // functionAsObject(15);
-    setTimeout(function () {
-        data = 15;
-        callBack(data);
-        print(data);
-    }, 1000);
-    console.log(data + 5);
-}
+// const otherFunction = function (callBack) {
+//     // functionAsObject(15);
+//     setTimeout(function () {
+//         data = 15;
+//         callBack(data);
+//         print(data);
+//     }, 1000);
+//     console.log(data + 5);
+// }
 
-otherFunction(print);
+// otherFunction(print);
