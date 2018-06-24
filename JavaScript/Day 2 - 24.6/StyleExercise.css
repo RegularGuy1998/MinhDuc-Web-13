@@ -1,0 +1,25 @@
+nav {
+    
+}
+
+.canle {    
+    text-align: center;
+    margin: 0px 5px 0px 5px;
+    border: 8px solid #D5B0AC;
+    color: #402E2A;
+}
+
+.canle:hover {
+    background-color: #9CD08F;
+    border-color: #9CD08F;
+    color: #ffffff;
+}
+
+.menu {
+    height: 17px;
+    background-color: #D5B0AC;
+    text-align: center;
+    vertical-align: baseline;
+    border: 8px solid #D5B0AC;
+    display: block;
+}
