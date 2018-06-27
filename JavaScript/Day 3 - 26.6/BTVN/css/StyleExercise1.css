@@ -1,0 +1,39 @@
+.menu {
+    background-color: #D5B0AC;
+    text-align: center;
+}
+
+.menu span {    
+    line-height: 30px;
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    color: #402E2A;
+    text-align: center;
+}
+
+.menu span:hover {
+    background-color: #9CD08F;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.menu-dropdown{
+    display: none;
+    position: absolute;
+}
+
+.dropdown:hover>.menu-dropdown {
+    background-color: #D5B0AC;  
+    display: block;
+    
+}
+
+.menu-dropdown span {
+    display: block;
+    position: relative;
+}
+nav nav nav{
+    left: 100%;
+    top: 0;
+}
