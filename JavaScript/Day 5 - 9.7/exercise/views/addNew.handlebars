@@ -1,0 +1,37 @@
+<nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Quyết.đê!</a>
+                <button data-target="#item" class=" navbar-toggle" data-toggle="collapse">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="item">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="/ask">Hỏi nhanh</a>
+                    </li>
+                    <li>
+                        <a href="/">Đáp gọn</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="container">
+  <form action="/api/question/" method="post">
+    <h1>Hãy hỏi cộng đồng một câu hỏi đúng/sai hoặc có/không</h1>
+    <textarea class="form-control" maxlength="200" rows="6" id="question" name="question"></textarea>
+    <p class="text-muted" id="counter">còn 200/200 ký tự</p>
+    <button class="btn btn-primary" type="submit" id="btn_ask">Gửi</button>
+  </form>
+</div>
+<script type="text/javascript">
+  $("#question").on("keyup change", function(){
+    $("#counter").html(`còn ${200-$(this).val().length}/200 ký tự`);
+  });
+
+</script>

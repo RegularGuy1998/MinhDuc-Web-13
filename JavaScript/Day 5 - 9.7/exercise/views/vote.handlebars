@@ -1,0 +1,53 @@
+
+{{number}}
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Quyết.đê!</a>
+            <button data-target="#item" class=" navbar-toggle" data-toggle="collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="item">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/ask">Hỏi nhanh</a>
+                </li>
+                <li class="active">
+                    <a href="/">Đáp gọn</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row text-center" id="text_question">
+        <h1>{{question}}</h1>
+    </div>
+    <div class="row text-center" id="text_vote">
+        <h3>{{all}}</h3>
+    </div>
+    <div class="row">
+        <div id="question_result" class="col-xs-12 question_result" style="display : block">
+            <div class="result_bar">
+                <div id="question_result_no" class="question_result_no" style="width: {{t}}%;">
+                    {{t}}%
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                </div>
+                <div id="question_result_yes" class="question_result_yes" style="width: {{f}}%;">
+                    {{f}}%
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <form action="/ask" method="post">
+            <button type="submit" name="btn_xemcauhoikhac" value="xemcauhoikhac" class="btn btn-success btn-lg btn_xemcauhoikhac">Xem câu hỏi khác</button>
+        </form>
+    </div>
+</div>
