@@ -1,0 +1,23 @@
+<div class="col-md-12">
+        <form action="addQuestion/add" method="POST">
+            <div class="form-group">
+                <label for="exampleFormControlTextarea3">
+                    <h3>Hãy hỏi cộng đồng một câu hỏi đúng/sai hoặc có/không</h3>
+                </label>
+                <textarea class="form-control" name="question" id="questionInput" rows="7" maxlength="200" onkeyup="textCount()"></textarea>
+                <p class="left" id="counter">Còn 200/200 ký tự</p>
+                <button class="btn btn-success" type="submit">Gửi câu hỏi</button>
+            </div>
+            <script type="text/javascript">
+                function textCount() {
+                    let input = document.getElementById("questionInput").value;
+                    if(input.length > 180) {
+                    document.getElementById("counter").style.color = "rgb(255, 52, 70)";
+                    } else {
+                        document.getElementById("counter").style.color = "rgb(33, 37, 41)";
+                    }
+                    document.getElementById("counter").innerHTML = "Còn " + (200 - input.length) + "/200 ký tự";
+                }
+            </script>
+        </form>
+    </div>

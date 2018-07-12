@@ -1,0 +1,18 @@
+<div class="col-12">
+    <h1>{{ques.question}}</h1><br>
+</div>
+<br>
+<div class="col-6">
+    <a href="/answer/{{ques.id}}/no"><button type="button" class="btn btn-outline-danger waves-effect"><i class="far fa-thumbs-down"></i> Sai/Không/Trái</button></a>
+</div>
+<div class="col-6">
+    <a href="/answer/{{ques.id}}/yes"><button type="button" class="btn btn-outline-primary waves-effect"><i class="far fa-thumbs-up"></i> Đúng/Có/Phải</button></a>
+</div>
+<div class="col-12 space">
+    {{!-- Param --}}
+    <a href="/vote/{{ques.id}}"><button type="button" class="btn btn-blue-grey btn-sm waves-effect waves-light">Kết Quả Vote</button></a>
+
+    {{!-- query --}}
+    {{!-- <a href="/vote?questionId={{ques.id}}"><button type="button" class="btn btn-blue-grey btn-sm waves-effect waves-light">Kết Quả Vote</button></a> --}}
+    <a href="/"><button type="button" class="btn btn-blue-grey btn-sm waves-effect waves-light">Câu Hỏi Khác</button></a>
+</div>
