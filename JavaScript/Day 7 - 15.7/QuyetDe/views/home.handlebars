@@ -1,0 +1,37 @@
+<div class="row text-center">
+    <div class="col-12">
+        <h1>{{ques.content}}</h1>
+    </div>
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6 col-12 align-self-center">
+        <img src="{{ques.image}}" class="img-fluid" alt="">
+    </div>
+</div>
+<div class="row text-center space">
+    <div class="col-6">
+        <a href="/question/{{ques.id}}/no">
+            <button type="button" class="btn btn-outline-danger waves-effect">
+                <i class="far fa-thumbs-down"></i> Sai/Không/Trái</button>
+        </a>
+    </div>
+    <div class="col-6">
+        <a href="/question/{{ques.id}}/yes">
+            <button type="button" class="btn btn-outline-primary waves-effect">
+                <i class="far fa-thumbs-up"></i> Đúng/Có/Phải</button>
+        </a>
+    </div>
+    <div class="col-12 space">
+        {{!-- Param --}}
+        <a href="/question/{{ques.id}}">
+            <button type="button" class="btn btn-blue-grey btn-sm waves-effect waves-light">Kết Quả Vote</button>
+        </a>
+
+        {{!-- query --}} {{!--
+        <a href="/vote?questionId={{ques.id}}">
+            <button type="button" class="btn btn-blue-grey btn-sm waves-effect waves-light">Kết Quả Vote</button>
+        </a> --}}
+        <a href="/">
+            <button type="button" class="btn btn-blue-grey btn-sm waves-effect waves-light">Câu Hỏi Khác</button>
+        </a>
+    </div>
+</div>
