@@ -1,0 +1,49 @@
+<div class="row text-center">
+    <div class="col-12">
+        <h1 id="showQuestion">{{ques.content}}</h1>
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+<div class="row text-center space">
+    <div class="col-6">
+        <a href="/question/{{ques.id}}/no" id="questionIDNo">
+            <button type="button" class="btn btn-outline-danger waves-effect">
+                <i class="far fa-thumbs-down"></i> Sai/Không/Trái</button>
+        </a>
+    </div>
+    <div class="col-6">
+        <a href="/question/{{ques.id}}/yes" id="questionIDYes">
+            <button type="button" class="btn btn-outline-primary waves-effect">
+                <i class="far fa-thumbs-up"></i> Đúng/Có/Phải</button>
+        </a>
+    </div>
+    <div class="col-12 space">
+        {{!-- Param --}}
+        <a href="/question/{{ques.id}}" id="questionID">
+            <button type="button" class="btn btn-blue-grey btn-sm waves-effect waves-light">Kết Quả Vote</button>
+        </a>
+
+        {{!-- query --}} {{!--
+        <a href="/vote?questionId={{ques.id}}">
+            <button type="button" class="btn btn-blue-grey btn-sm waves-effect waves-light">Kết Quả Vote</button>
+        </a> --}}
+        <a>
+            <button type="button" id="otherQuestion" class="btn btn-blue-grey btn-sm waves-effect waves-light">Câu Hỏi Khác</button>
+        </a>
+    </div>
+</div>
+<script>
+    $("#otherQuestion").click(function () {
+        $.ajax({
+            url: "/api/otherQuestion",
+            type: "GET",
+            data: {},
+            success: (ques) => {
+                $("#showQuestion").text(ques.questionFound.content),
+                $("#questionID").attr("href", "/question/" + ques.questionFound._id),
+                $("#questionIDYes").attr("href", "/question/" + ques.questionFound._id+ "/yes"),
+                $("#questionIDNo").attr("href", "/question/" + ques.questionFound._id + "/no")
+            },
+        });
+    })
+</script>

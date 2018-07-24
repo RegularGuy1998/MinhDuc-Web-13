@@ -1,0 +1,36 @@
+<div class="row text-center">
+    <div class="col-md-12">
+        <form id="questionForm">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <label for="exampleFormControlTextarea3">
+                        <h3>Hãy hỏi cộng đồng một câu hỏi đúng/sai hoặc có/không</h3>
+                    </label>
+                    <textarea class="form-control" name="content" id="questionInput" rows="7" maxlength="200"></textarea>
+                    <p class="left">Còn <span id="counter">200</span>/200 ký tự</p>
+                    <button class="btn btn-success" type="submit">Gửi câu hỏi</button>
+                </div>
+            </div>
+        </form>
+        <script>
+            let cou = 200;
+            $("#questionInput").on("input", () => {
+                $("#counter").text( cou - $("#questionInput").val().length);
+            });
+
+            $("#questionForm").on("submit", (event) => {
+                event.preventDefault();
+                $.ajax({
+                    url: "/api/addNew",
+                    type: "POST",
+                    data: {
+                        content: $("#questionInput").val()
+                    },
+                    success: (data) => {
+                        console.log(data);
+                    }
+                })
+            })
+        </script>
+    </div>
+</div>

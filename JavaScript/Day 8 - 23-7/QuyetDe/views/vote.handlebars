@@ -1,0 +1,36 @@
+<div class="row text-center">
+    <div class="col-12">
+        <h1>{{ques.content}}</h1>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6 col-12 align-self-center">
+        <img src="{{ques.image}}" class="img-fluid" alt="">
+    </div>
+</div>
+<br>
+<br>
+<div class="row text-center">
+    <div class="col-12">
+        <h3 class="center">{{total}} Votes</h3>
+    </div>
+    <br>
+
+
+    <div class="col-12 question-result">
+        <div class="question_result_no animated slideInLeft" style="width: {{no}}%;" {{noHidden}}>
+            {{no}}%
+            <i class="far fa-thumbs-down"></i>
+        </div>
+        <div class="question_result_yes animated slideInRight" style="width: {{yes}}%;" {{yesHidden}}>
+            {{yes}}%
+            <i class="far fa-thumbs-up"></i>
+        </div>
+    </div>
+    <div class="col-12 space">
+        <a href="/">
+            <button class="btn btn-success" type="submit" id="btn_ask">Xem câu hỏi khác</button>
+        </a>
+    </div>
+</div>
