@@ -28,27 +28,26 @@
     <div class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container">
             <div class="navbar-brand">
-                <img src="./Image.png" height="30" class="d-inline-block align-top" alt="" id="ketqua"> Let's search!
+                <img src="./Image.png" height="30" class="d-inline-block align-top" alt="" > Let's search!
             </div>
         </div>
     </div>
-    <div class="container" id="ketqua">
+    <div class="container">
         <div class="row searchh">
             <div class="col-md-12">
                 <div class="input-group input-group-lg">
-                    <div class="input-group-prepend" id="ketqua"> 
+                    <div class="input-group-prepend"> 
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-search"></i>
                         </span>
                     </div>
-                    <input class="form-control mr-sm-2 " type="text" placeholder="Search" name="keyword" id="keyword ketqua" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" name="keyword" id="keyword" aria-label="Search">
                 </div>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-12" id="result-list">
-
 
             </div>
         </div>
@@ -118,10 +117,10 @@
                             if (result.id.kind === "youtube#video") {
                                 $("#result-list").append(`
                                     <div class="result animated fadeIn">
-                                        <div class="row">
-                                            <div class="col-lg-4" id="ketqua">
+                                        <div class="row ketqua">
+                                            <div class="col-lg-4">
                                                 <a href="https://www.youtube.com/watch?v=${result.id.videoId}">
-                                                    <img src="${result.snippet.thumbnails.medium.url}" alt="" class="youtubeImage">
+                                                    <img src="${result.snippet.thumbnails.medium.url}" alt="" class="youtubeImage ketqua">
                                                 </a>
                                             </div>
                                             <div class="col-lg-8 info" >
@@ -138,6 +137,7 @@
                                             </div>
                                         </div>
                                     </div>`);
+
                             } else if (result.id.kind) {
 
                             }
@@ -147,13 +147,12 @@
                 }
             });
         }
-
-        $("#ketqua").hover(
-            function () {
-                console.log("a");
+        $(".ketqua").hover(
+            function() {
+                console.log("1");
             },
-            function () {
-
+            function() {
+                console.log("2");
             }
         )
     </script>
