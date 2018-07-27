@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Youtube search</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./animate.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+
+    <div class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container">
+            <div class="navbar-brand">
+                <img src="./Image.png" height="30" class="d-inline-block align-top" alt="" id="ketqua"> Let's search!
+            </div>
+        </div>
+    </div>
+    <div class="container" id="ketqua">
+        <div class="row searchh">
+            <div class="col-md-12">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend" id="ketqua"> 
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input class="form-control mr-sm-2 " type="text" placeholder="Search" name="keyword" id="keyword ketqua" aria-label="Search">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12" id="result-list">
+
+
+            </div>
+        </div>
+        <div class="row loading">
+            <div class="col-lg-12 loading">
+                <div class="lds-ellipsis col-md-1" id="threeDots">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <p id="noResult" class="noResult">No Result</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        $("#threeDots").css({ opacity: 0 });
+        let nextPageToken = "";
+        let crol = false;
+        let ngungDongThoiGian;
+
+        $("#keyword").on("input", function () {
+            $("#noResult").css({ opacity: 0 });
+            $("#result-list").empty();
+            $("#threeDots").css({ opacity: 1 });
+            clearTimeout(ngungDongThoiGian);
+            ngungDongThoiGian = setTimeout(() => {
+                nextPageToken = "";
+                if ($("#keyword").val() != "") {
+                    searchYoutube();
+                } else {
+                    $("#threeDots").css({ opacity: 0 });
+                }
+            }, 1000);
+        });
+
+        $(window).scroll(function () {
+            $("#threeDots").css({ opacity: 1 });
+            toScroll = $(document).height() - $(window).height() - 1;
+            if ($(this).scrollTop() > toScroll) {
+                if (nextPageToken === undefined) {
+                    $("#noResult").text("End");
+                    $("#threeDots").css({ opacity: 0 });
+                } else {
+                    searchYoutube();
+                }
+            }
+        });
+
+        function searchYoutube() {
+            $.ajax({
+                url: `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&q=${$("#keyword").val()}&key=AIzaSyA9gQZ-oYomFypZN7PsupZJtOfQqA6Q3qw&pageToken=${nextPageToken}`,
+                type: "GET",
+                success: (data) => {
+                    nextPageToken = data.nextPageToken;
+                    console.log(data);
+                    if (data.items.length === 0) {
+                        $("#threeDots").css({ opacity: 0 });
+                        $("#noResult").css({ opacity: 1 });
+                    } else {
+                        for (let id = 0; id < data.items.length; id++) {
+                            const result = data.items[id];
+                            if (result.id.kind === "youtube#video") {
+                                $("#result-list").append(`
+                                    <div class="result animated fadeIn">
+                                        <div class="row">
+                                            <div class="col-lg-4" id="ketqua">
+                                                <a href="https://www.youtube.com/watch?v=${result.id.videoId}">
+                                                    <img src="${result.snippet.thumbnails.medium.url}" alt="" class="youtubeImage">
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-8 info" >
+                                                <a href="https://www.youtube.com/watch?v=${result.id.videoId}">
+                                                    <h3 class="title" >${result.snippet.title}</h3>
+                                                </a>
+                                                <a href="https://www.youtube.com/channel/${result.snippet.channelId}" class="channel">
+                                                <p>${result.snippet.channelTitle}</p>
+                                                </a>
+                                                <a href="https://www.youtube.com/watch?v=${result.id.videoId}">
+                                                    <p class="description">${result.snippet.description}</p>
+                                                    
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                            } else if (result.id.kind) {
+
+                            }
+                            $("#threeDots").css({ opacity: 0 });
+                        }
+                    }
+                }
+            });
+        }
+
+        $("#ketqua").hover(
+            function () {
+                console.log("a");
+            },
+            function () {
+
+            }
+        )
+    </script>
+</body>
+
+</html>

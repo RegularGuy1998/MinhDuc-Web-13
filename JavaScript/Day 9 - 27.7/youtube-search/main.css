@@ -1,0 +1,150 @@
+.youtubeImage {
+    width: 100%;
+    /* height: 100%; */
+}
+
+a{
+  text-decoration: none;
+}
+
+.searchh {
+  margin-top: 100px
+}
+
+.loading {
+  text-align: center
+}
+
+.result {
+    margin-top: 30px;
+}
+
+.xemthem {
+  color: rgb(136, 136, 136);
+}
+
+.noResult {
+  opacity: 0;
+  color: white;
+}
+
+/* .info {
+    margin-top: 20px;
+} */
+
+.title{
+    color: white;
+    text-decoration: none;
+}
+
+.channel{
+  color: rgb(136, 136, 136);
+}
+
+.channel :hover {
+  color: white;
+}
+
+.description{
+    color: rgb(136, 136, 136);
+    text-decoration: none;
+}
+
+body {
+    background-color: rgb(18, 18, 18);
+}
+
+.number {
+    opacity: 0;
+}
+
+.letclass {
+    text-align: center;
+}
+
+  .lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .lds-ellipsis div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #65737e;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds-ellipsis div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(19px, 0);
+    }
+  }
+  
+.fadeRight {
+  animation: khoiSuong 0.3s;
+}
+
+@keyframes khoiSuong {
+  0% {
+      right: 0px;
+      opacity: 0;
+  }
+  100% {
+    right: 30px;
+    opacity: 1;
+  }
+}
+
+.showRight {
+  animation: khoiSuongNguoc 0.3s;
+}
+
+@keyframes khoiSuongNguoc {
+  0% {
+      left: 0px;
+      opacity: 1;
+  }
+  100% {
+    left: 30px;
+    opacity: 0;
+  }
+}
+
