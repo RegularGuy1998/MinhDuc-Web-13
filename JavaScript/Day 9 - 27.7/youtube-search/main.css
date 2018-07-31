@@ -3,8 +3,13 @@
     /* height: 100%; */
 }
 
-a{
+a:hover {
   text-decoration: none;
+}
+
+.evodeLink{
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .searchh {
@@ -15,11 +20,17 @@ a{
   text-align: center
 }
 
+.rList {
+  transition: 200ms;
+}
+
 .result {
     margin-top: 30px;
 }
 
 .xemthem {
+  opacity: 0;
+  transition: 300ms;
   color: rgb(136, 136, 136);
 }
 
@@ -67,6 +78,7 @@ body {
     position: relative;
     width: 64px;
     height: 64px;
+    transition: 300ms;
   }
   .lds-ellipsis div {
     position: absolute;
@@ -118,23 +130,27 @@ body {
     }
   }
   
-.fadeRight {
+.showRight {
+  opacity: 1;
   animation: khoiSuong 0.3s;
+  position: relative;
 }
 
 @keyframes khoiSuong {
   0% {
-      right: 0px;
+      left: 30px;
       opacity: 0;
   }
   100% {
-    right: 30px;
+    left: 0px;
     opacity: 1;
   }
 }
 
-.showRight {
+.fadeRight {
+  opacity: 0;
   animation: khoiSuongNguoc 0.3s;
+  position: relative;
 }
 
 @keyframes khoiSuongNguoc {
