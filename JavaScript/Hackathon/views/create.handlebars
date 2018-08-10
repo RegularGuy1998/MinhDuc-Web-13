@@ -1,0 +1,35 @@
+<form id="createForm">
+    <div class="row text-center">
+    <div class="col-12">
+        <input type="text" placeholder="Player 1..." id="player1" name="player1" class="form-control inputPlayer">
+    </div>
+    <div class="col-12">
+        <input type="text" placeholder="Player 2..." id="player2" name="player2" class="form-control inputPlayer">
+    </div>
+    <div class="col-12">
+        <input type="text" placeholder="Player 3..." id="player3" name="player3" class="form-control inputPlayer">
+    </div>
+    <div class="col-12">
+        <input type="text" placeholder="Player 4..." id="player4" name="player4" class="form-control inputPlayer">
+    </div>
+    <div class="col-12 text-center">
+        <button type="submit" class="btn btn-light">Create New Game</button>
+    </div>
+    </div>
+</form>
+
+
+<script>
+    $("#createForm").on("submit", (event) => {
+        console.log($("#player1").val());
+        event.preventDefault();
+        $.ajax({
+            url: "/game/create",
+            type: "POST",
+            data: $("#createForm").serialize(),
+            success: (body) => {
+                window.location.href = "/game/" + body.gameID;
+            }
+        });
+    })
+</script>

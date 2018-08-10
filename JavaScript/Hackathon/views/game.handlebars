@@ -1,0 +1,154 @@
+<div class="col-12">
+    <table>
+        <tr>
+            <th></th>
+            <th id="pName1"></th>
+            <th id="pName2"></th>
+            <th id="pName3"></th>
+            <th id="pName4"></th>
+        </tr>
+        <tr>
+            <td>Sum of Score (0)</td>
+            <td id="ps0"></td>
+            <td id="ps1"></td>
+            <td id="ps2"></td>
+            <td id="ps3"></td>
+        </tr>
+
+    </table>
+    <div class="col-12 text-center">
+        <button id="addRound">add round</button>
+    </div>
+</div>
+
+<script>
+    let gInfo;
+    getDataGame();
+
+    function begin() {
+        $("#pName1").text(gInfo.player[0].name);
+        $("#pName2").text(gInfo.player[1].name);
+        $("#pName3").text(gInfo.player[2].name);
+        $("#pName4").text(gInfo.player[3].name);
+        for (let i = 0; i < gInfo.player[0].score.length; i++) {
+            addTable(i);
+        }
+        updateTotalScore();
+    }
+
+
+
+    $("#addRound").on("click", () => {
+        $.ajax({
+            url: "/game/addRound",
+            type: "POST",
+            data: {
+                gameID: "{{id}}"
+            },
+            success: (data) => {
+                gInfo = data.data;
+                addTable(gInfo.player[0].score.length - 1);
+            }
+        })
+    });
+
+    function getDataGame() {
+        $.ajax({
+            url: "/game/getData",
+            type: "POST",
+            data: {
+                gameID: "{{id}}"
+            },
+            success: (data) => {
+                gInfo = data.data;
+                begin();
+            }
+        });
+    }
+
+    function addTable(row) {
+        $("table").append(`
+            <tr>
+                <td>Round ${row + 1}</td>
+                <td><input type="number" name="ps0${row}" id="ps0${row}" value="${gInfo.player[0].score[row]}"></td>
+                <td><input type="number" name="ps1${row}" id="ps1${row}" value="${gInfo.player[1].score[row]}"></td>
+                <td><input type="number" name="ps2${row}" id="ps2${row}" value="${gInfo.player[2].score[row]}"></td>
+                <td><input type="number" name="ps3${row}" id="ps3${row}" value="${gInfo.player[3].score[row]}"></td>
+            </tr>
+        `);
+        for (let i = 0; i < 4; i++) {
+            $(`#ps${i}${row}`).on("input", () => {
+                if ($(`#ps${i}${row}`).val() + 1 != undefined & $(`#ps${i}${row}`).val() + 1 != null & $(`#ps${i}${row}`).val() + 1 != NaN) {
+                    changeValue(row, i, $(`#ps${i}${row}`).val());
+                }
+                updateTotalScore(row);
+                updateMongod(row);
+            });
+        }
+    }
+
+    function changeValue(row, col, value) {
+        gInfo.player[col].score[row] = parseInt(value);
+        let ad;
+        if (col != 3) {
+            for (let i = col + 1; i < 4; i++) {
+                ad = parseInt(checkZero(row));
+                if (ad != 0) {
+                    gInfo.player[i].score[row] = gInfo.player[i].score[row] + ad;
+
+                    $(`#ps${i}${row}`).val(gInfo.player[i].score[row]);
+                } else break;
+                if (i === 3) {
+                    i = col;
+                }
+            }
+        }
+        else {
+            ad = parseInt(checkZero(row));
+            while (ad != 0) {
+                gInfo.player[2].score[row] = gInfo.player[2].score[row] + ad;
+                $(`#ps${2}${row}`).val(gInfo.player[2].score[row]);
+                ad = parseInt(checkZero(row));
+            }
+        }
+    }
+
+
+    let checkZero = (row) => {
+        let temp = gInfo.player[0].score[row] + gInfo.player[1].score[row] + gInfo.player[2].score[row] + gInfo.player[3].score[row];
+        if (temp === 0) {
+            return 0;
+        } else if (temp > 0) {
+            return -1;
+        } else return 1;
+    }
+
+    let updateTotalScore = () => {
+        for (let i = 0; i < 4; i++) {
+            let temp = 0;
+            for (let j = 0; j < gInfo.player[0].score.length; j++) {
+                if (gInfo.player[i].score[j] != 0) {
+                    temp = temp + parseInt($(`#ps${i}${j}`).val());
+                }
+            }
+            $(`#ps${i}`).text(temp);
+        }
+    }
+
+    let updateMongod = (row) => {
+        $.ajax({
+            url: "/game/updateScore",
+            type: "POST",
+            data: {
+                gameID : "{{id}}",
+                score0: gInfo.player[0].score[row],
+                score1: gInfo.player[1].score[row], 
+                score2: gInfo.player[2].score[row], 
+                score3: gInfo.player[3].score[row],
+                row: row
+            },
+            success: () => { }
+        });
+    }
+
+</script>
