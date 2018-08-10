@@ -65,12 +65,11 @@ router.post("/addRound", (req, res) => {
 
 router.post("/updateScore", (req, res) => {
     console.log(req.body);
+    console.log(req.body.score);
     gameModel.findById(req.body.gameID, (err, newData) => {
         if (err) {
             console.error(err);
         } else {
-            console.log(newData);
-            console.log(newData.player[0].score[req.body.row])
             newData.player[0].score[req.body.row] = req.body.score0;
             newData.player[1].score[req.body.row] = req.body.score1;
             newData.player[2].score[req.body.row] = req.body.score2;

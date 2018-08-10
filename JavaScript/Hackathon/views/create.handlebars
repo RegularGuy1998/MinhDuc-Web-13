@@ -13,20 +13,33 @@
         <input type="text" placeholder="Player 4..." id="player4" name="player4" class="form-control inputPlayer">
     </div>
     <div class="col-12 text-center">
-        <button type="submit" class="btn btn-light">Create New Game</button>
+        <button type="submit" class="btn btn-secondary">Create New Game</button>
     </div>
     </div>
 </form>
 
 
 <script>
+    
     $("#createForm").on("submit", (event) => {
-        console.log($("#player1").val());
         event.preventDefault();
+        let player = ["","","",""];
+        for(let i = 1; i <= 4; i ++) {
+            if($(`#player${i}`).val() != "") {
+                player[i-1] = $(`#player${i}`).val();
+            } else {
+                player[i-1] = `Player ${i}`;
+            }
+        }
         $.ajax({
             url: "/game/create",
             type: "POST",
-            data: $("#createForm").serialize(),
+            data: {
+                player1: player[0],
+                player2: player[1],
+                player3: player[2],
+                player4: player[3]
+            },
             success: (body) => {
                 window.location.href = "/game/" + body.gameID;
             }

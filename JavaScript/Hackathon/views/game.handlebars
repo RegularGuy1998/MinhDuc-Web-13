@@ -1,29 +1,33 @@
 <div class="col-12">
-    <table>
-        <tr>
-            <th></th>
-            <th id="pName1"></th>
-            <th id="pName2"></th>
-            <th id="pName3"></th>
-            <th id="pName4"></th>
-        </tr>
-        <tr>
-            <td>Sum of Score (0)</td>
-            <td id="ps0"></td>
-            <td id="ps1"></td>
-            <td id="ps2"></td>
-            <td id="ps3"></td>
-        </tr>
+    <table class="table table-hover border rounded border-dark ">
+        <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th id="pName1"></th>
+                <th id="pName2"></th>
+                <th id="pName3"></th>
+                <th id="pName4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-active">
+                <th scope="row">Sum of Score (0)</th>
+                <td id="ps0"></td>
+                <td id="ps1"></td>
+                <td id="ps2"></td>
+                <td id="ps3"></td>
+            </tr>
+        </tbody>
 
     </table>
     <div class="col-12 text-center">
-        <button id="addRound">add round</button>
+        <button id="addRound" class="btn btn-secondary">Add Round</button>
     </div>
 </div>
 
 <script>
-    let gInfo;
-    getDataGame();
+    let gInfo; // Lấy dữ liệu game
+    getDataGame(); // 
 
     function begin() {
         $("#pName1").text(gInfo.player[0].name);
@@ -67,9 +71,9 @@
     }
 
     function addTable(row) {
-        $("table").append(`
+        $("tbody").append(`
             <tr>
-                <td>Round ${row + 1}</td>
+                <th scope="row">Round ${row + 1}</th>
                 <td><input type="number" name="ps0${row}" id="ps0${row}" value="${gInfo.player[0].score[row]}"></td>
                 <td><input type="number" name="ps1${row}" id="ps1${row}" value="${gInfo.player[1].score[row]}"></td>
                 <td><input type="number" name="ps2${row}" id="ps2${row}" value="${gInfo.player[2].score[row]}"></td>
@@ -78,13 +82,14 @@
         `);
         for (let i = 0; i < 4; i++) {
             $(`#ps${i}${row}`).on("input", () => {
-                if ($(`#ps${i}${row}`).val() + 1 != undefined & $(`#ps${i}${row}`).val() + 1 != null & $(`#ps${i}${row}`).val() + 1 != NaN) {
+                if ($(`#ps${i}${row}`).val() != "" && $(`#ps${i}${row}`).val() != "-") {
                     changeValue(row, i, $(`#ps${i}${row}`).val());
+                    updateTotalScore(row);
+                    updateMongod(row);
                 }
-                updateTotalScore(row);
-                updateMongod(row);
             });
         }
+
     }
 
     function changeValue(row, col, value) {
@@ -136,16 +141,19 @@
     }
 
     let updateMongod = (row) => {
+        let score = [gInfo.player[0].score[row], gInfo.player[1].score[row], gInfo.player[2].score[row], gInfo.player[3].score[row]];
         $.ajax({
             url: "/game/updateScore",
             type: "POST",
+            dataType: "application/json",
             data: {
-                gameID : "{{id}}",
+                gameID: "{{id}}",
+                score,
                 score0: gInfo.player[0].score[row],
-                score1: gInfo.player[1].score[row], 
-                score2: gInfo.player[2].score[row], 
+                score1: gInfo.player[1].score[row],
+                score2: gInfo.player[2].score[row],
                 score3: gInfo.player[3].score[row],
-                row: row
+                row
             },
             success: () => { }
         });
