@@ -9,6 +9,7 @@ const apiRouter = require("./router/apiRouter");
 let app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.engine("handlebars", handlebars({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 app.use(express.static('public'));
@@ -23,7 +24,7 @@ app.get("/", (req,res) => {
 
 
 
-mongoose.connect("mongodb://localhost:27017/Game", { useNewUrlParser: true }, function (err) {
+mongoose.connect("mongodb://Hackathon:1234abc@ds239681.mlab.com:39681/project1", { useNewUrlParser: true }, function (err) {
     if (err) {
         console.log(err);
     } else {

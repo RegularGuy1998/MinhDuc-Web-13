@@ -34,12 +34,10 @@
         $.ajax({
             url: "/game/create",
             type: "POST",
-            data: {
-                player1: player[0],
-                player2: player[1],
-                player3: player[2],
-                player4: player[3]
-            },
+            headers: {"Content-Type" : "application/json"},
+            data: JSON.stringify({
+                player
+            }),
             success: (body) => {
                 window.location.href = "/game/" + body.gameID;
             }

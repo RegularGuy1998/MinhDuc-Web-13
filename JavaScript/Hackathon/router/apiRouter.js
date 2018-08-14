@@ -11,17 +11,17 @@ router.post("/create", (req, res) => {
     let newGame = {
         player: [
             {
-                name: req.body.player1,
-                score: [0, 0, 0, 0]
+                name: req.body.player[0],
+                score: [0]
             }, {
-                name: req.body.player2,
-                score: [0, 0, 0, 0]
+                name: req.body.player[1],
+                score: [0]
             }, {
-                name: req.body.player3,
-                score: [0, 0, 0, 0]
+                name: req.body.player[2],
+                score: [0]
             }, {
-                name: req.body.player4,
-                score: [0, 0, 0, 0]
+                name: req.body.player[3],
+                score: [0]
             }
         ]
     };
@@ -64,16 +64,14 @@ router.post("/addRound", (req, res) => {
 });
 
 router.post("/updateScore", (req, res) => {
-    console.log(req.body);
     console.log(req.body.score);
     gameModel.findById(req.body.gameID, (err, newData) => {
         if (err) {
-            console.error(err);
+            res.status(500).send({ success: 0, errMsg: err });
         } else {
-            newData.player[0].score[req.body.row] = req.body.score0;
-            newData.player[1].score[req.body.row] = req.body.score1;
-            newData.player[2].score[req.body.row] = req.body.score2;
-            newData.player[3].score[req.body.row] = req.body.score3;
+            for (let i = 0; i < 4; i++) {
+                newData.player[i].score[req.body.row] = req.body.score[i];     
+            }
             gameModel.updateOne({ _id: req.body.gameID }, newData, (err, resUpdate) => {
                 if (err) {
                     res.status(500).send({ success: 0, errMsg: err });

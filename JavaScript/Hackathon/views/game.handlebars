@@ -12,10 +12,10 @@
         <tbody>
             <tr class="table-active">
                 <th scope="row">Sum of Score (0)</th>
-                <td id="ps0"></td>
-                <td id="ps1"></td>
-                <td id="ps2"></td>
-                <td id="ps3"></td>
+                <td id="ps0">0</td>
+                <td id="ps1">0</td>
+                <td id="ps2">0</td>
+                <td id="ps3">0</td>
             </tr>
         </tbody>
 
@@ -26,18 +26,21 @@
 </div>
 
 <script>
-    let gInfo; // Lấy dữ liệu game
-    getDataGame(); // 
+    let gInfo;
+    getDataGame();
 
     function begin() {
-        $("#pName1").text(gInfo.player[0].name);
-        $("#pName2").text(gInfo.player[1].name);
-        $("#pName3").text(gInfo.player[2].name);
-        $("#pName4").text(gInfo.player[3].name);
-        for (let i = 0; i < gInfo.player[0].score.length; i++) {
-            addTable(i);
+        for (let i = 0; i < 4; i++) {
+            $(`#pName${i + 1}`).text(gInfo.player[i].name);
         }
-        updateTotalScore();
+        if (gInfo.player[0].score.length != 0) {
+            for (let i = 0; i < gInfo.player[0].score.length; i++) {
+                addTable(i);
+                updateTotalScore();
+            }
+        } else {
+            addTable(0);
+        }
     }
 
 
@@ -145,16 +148,14 @@
         $.ajax({
             url: "/game/updateScore",
             type: "POST",
-            dataType: "application/json",
-            data: {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: JSON.stringify({
                 gameID: "{{id}}",
                 score,
-                score0: gInfo.player[0].score[row],
-                score1: gInfo.player[1].score[row],
-                score2: gInfo.player[2].score[row],
-                score3: gInfo.player[3].score[row],
                 row
-            },
+            }),
             success: () => { }
         });
     }
